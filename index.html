@@ -1,0 +1,1596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Portal — Classroom UI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<style>
+/* --- NEW UI STYLES --- */
+:root {
+  --bg: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --primary: #1a1a1a;
+  --accent: #4a5568;
+  --danger: #e53e3e;
+  --success: #38a169;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  --radius: 12px;
+  --maxWidth: 1200px;
+  --gap: 16px;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  color: #1a1a1a;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--gap);
+  width: 100%;
+  max-width: var(--maxWidth);
+  align-items: start;
+}
+
+.sidebar {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 24px;
+  height: calc(100vh - 48px);
+  overflow: auto;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #1a1a1a, #4a5568);
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand .title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.brand .sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-item:hover {
+  background: #f7fafc;
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(26, 26, 26, 0.08), rgba(26, 26, 26, 0.04));
+  border-left: 4px solid var(--primary);
+  padding-left: 8px;
+}
+
+.icon {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 20px;
+  color: var(--primary);
+}
+
+.profile-card {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #f8fafc, #fff);
+  border: 1px solid #e2e8f0;
+}
+
+.profile-name {
+  font-weight: 600;
+}
+
+.profile-role {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sidebar button {
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 8px 10px;
+  box-shadow: var(--shadow);
+  min-width: 420px;
+  max-width: 640px;
+}
+
+.search input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 8px;
+  background: #fff;
+}
+
+.chat-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-window {
+  height: 300px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  overflow: auto;
+  background: #f8fbff;
+}
+
+.message {
+  padding: 10px;
+  border-radius: 8px;
+  background: #eef6ff;
+  margin-bottom: 8px;
+}
+
+.message .meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+.btn {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 0;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background: #2d3748;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  color: var(--primary);
+}
+
+.btn.danger {
+  background: var(--danger);
+}
+
+.btn.success {
+  background: var(--success);
+}
+
+#authModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#authModal>div {
+  background: var(--surface);
+  padding: 22px;
+  border-radius: 12px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 980px) {
+  .app {
+    grid-template-columns: 1fr;
+    padding-bottom: 160px;
+  }
+  .sidebar {
+    position: relative;
+    height: auto;
+  }
+  .search {
+    min-width: unset;
+    width: 100%;
+  }
+  .chat-window {
+    height: 200px;
+  }
+}
+
+/* Additional styles for improved UI */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  z-index: 1001;
+  transform: translateX(150%);
+  transition: transform 0.3s ease;
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+.toast.success {
+  border-left: 4px solid #10b981;
+}
+
+.toast.error {
+  border-left: 4px solid var(--danger);
+}
+
+.toast.warning {
+  border-left: 4px solid var(--accent);
+}
+
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, .3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Profile styles */
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary);
+  margin-bottom: 16px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+}
+
+.profile-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.file-input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px dashed #e2e8f0;
+}
+
+/* Admin styles */
+.admin-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.admin-table th, .admin-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.admin-table th {
+  background: #f8fafc;
+  font-weight: 600;
+}
+
+/* Create forms */
+.create-form {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.create-form input, .create-form textarea, .create-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-family: inherit;
+}
+
+/* Club styles */
+.club-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+
+.club-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: white;
+}
+
+.club-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.club-info {
+  flex: 1;
+}
+
+.club-name {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0;
+}
+
+.club-abbr {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.club-leaders {
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.club-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.club-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.club-stat-value {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.club-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Club tab styles */
+.club-tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.club-section {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.club-section h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.funds-display {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--success);
+  margin: 8px 0;
+}
+
+.project-item {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-left: 4px solid var(--primary);
+}
+
+.project-title {
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.project-desc {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Registration form styles */
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row > * {
+  flex: 1;
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">SP</div>
+      <div>
+        <div class="title">Student Portal</div>
+        <div class="sub">Classroom UI</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-tab="dashboard">
+        <span class="material-symbols-outlined icon">home</span>Dashboard
+      </div>
+      <div class="nav-item" data-tab="projects">
+        <span class="material-symbols-outlined icon">work</span>Projects
+      </div>
+      <div class="nav-item" data-tab="assignments">
+        <span class="material-symbols-outlined icon">assignment</span>Assignments
+      </div>
+      <div class="nav-item" data-tab="events">
+        <span class="material-symbols-outlined icon">event</span>Events
+      </div>
+      <div class="nav-item" data-tab="conversations">
+        <span class="material-symbols-outlined icon">chat_bubble</span>Conversations
+      </div>
+      <div class="nav-item" data-tab="clubs">
+        <span class="material-symbols-outlined icon">account_balance</span>Clubs
+      </div>
+      <div class="nav-item" data-tab="reports">
+        <span class="material-symbols-outlined icon">report</span>Reports
+      </div>
+      <div class="nav-item" data-tab="profile">
+        <span class="material-symbols-outlined icon">person</span>Profile
+      </div>
+      <div id="adminNav" class="nav-item" data-tab="admin" style="display:none">
+        <span class="material-symbols-outlined icon">admin_panel_settings</span>Admin Panel
+      </div>
+      <!-- Club tabs will be dynamically added here -->
+    </nav>
+    <div class="profile-card">
+      <div class="profile-name" id="sideName">Guest</div>
+      <div class="profile-role" id="sideRole">Not signed in</div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button id="sidebarLogout" class="btn ghost" style="flex:1; display:none">Logout</button>
+      <button id="openLogin" class="btn" style="flex:1">Login</button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="topbar">
+      <div class="search">
+        <span class="material-symbols-outlined" style="color:var(--muted)">search</span>
+        <input id="globalSearch" placeholder="Search projects, clubs, assignments...">
+      </div>
+      <div class="top-actions">
+        <div style="text-align:right">
+          <div id="welcomeText" style="font-weight:600">Welcome</div>
+          <div class="small-muted" id="welcomeSub">Please sign in</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sections -->
+    <section id="dashboard" class="card">
+      <h3>Dashboard</h3>
+      <p>Welcome to your student dashboard. Select a section from the sidebar to get started.</p>
+    </section>
+    
+    <section id="projects" class="card" style="display:none">
+      <div class="section-title">
+        <h3>Projects</h3>
+        <button id="createProjectBtn" class="btn">Create Project</button>
+      </div>
+      <div id="projectsList"></div>
+    </section>
+    
+    <section id="assignments" class="card" style="display:none">
+      <h3>Assignments</h3>
+      <div id="assignmentsList"></div>
+    </section>
+    
+    <section id="events" class="card" style="display:none">
+      <h3>Events</h3>
+      <div id="eventsList"></div>
+    </section>
+    
+    <section id="conversations" class="card" style="display:none">
+      <h3>Conversations</h3>
+      <div class="chat-area">
+        <div class="chat-window" id="chatWindow"></div>
+        <div class="chat-input">
+          <input id="chatInput" placeholder="Type your message...">
+          <button class="btn" id="sendBtn">Send</button>
+        </div>
+      </div>
+    </section>
+    
+    <section id="clubs" class="card" style="display:none">
+      <div class="section-title">
+        <h3>Clubs</h3>
+        <button id="createClubBtn" class="btn" style="display:none">Create Club</button>
+      </div>
+      <div id="clubsList"></div>
+    </section>
+    
+    <section id="reports" class="card" style="display:none">
+      <h3>Reports</h3>
+      <div id="reportsList"></div>
+    </section>
+    
+    <section id="profile" class="card" style="display:none">
+      <h3>Profile</h3>
+      <div class="profile-form">
+        <img id="profilePic" src="https://via.placeholder.com/100" class="profile-pic" alt="Profile Picture">
+        <input type="file" id="profilePicInput" class="file-input" accept="image/*">
+        <input type="text" id="profileName" placeholder="Your Full Name">
+        <select id="profileGrade">
+          <option value="">Select Grade</option>
+          <option value="TC">TC</option>
+          <option value="1BAC">1BAC</option>
+          <option value="2BAC">2BAC</option>
+        </select>
+        <textarea id="profileBio" placeholder="Write something about yourself..."></textarea>
+        <button id="saveProfileBtn" class="btn">Save Profile</button>
+      </div>
+    </section>
+    
+    <section id="admin" class="card" style="display:none">
+      <h3>Admin Panel</h3>
+      <div class="admin-controls">
+        <button id="manageUsersBtn" class="btn">Manage Users</button>
+        <button id="systemStatsBtn" class="btn">System Stats</button>
+      </div>
+      <div id="adminContent"></div>
+    </section>
+    
+    <!-- Club sections will be dynamically added here -->
+  </main>
+</div>
+
+<!-- Auth Modal -->
+<div id="authModal">
+  <div>
+    <h3>Sign in / Register</h3>
+    <div class="registration-form">
+      <div class="form-row">
+        <input id="modalFirstName" placeholder="First Name" style="width:100%;padding:8px;margin:4px 0">
+        <input id="modalLastName" placeholder="Last Name" style="width:100%;padding:8px;margin:4px 0">
+      </div>
+      <input id="modalEmail" placeholder="Email" style="width:100%;padding:8px;margin:4px 0">
+      <input id="modalPass" type="password" placeholder="Password" style="width:100%;padding:8px;margin:4px 0">
+      <select id="modalGrade" style="width:100%;padding:8px;margin:4px 0">
+        <option value="">Select Grade</option>
+        <option value="TC">TC</option>
+        <option value="1BAC">1BAC</option>
+        <option value="2BAC">2BAC</option>
+      </select>
+      <input type="file" id="modalProfilePic" class="file-input" accept="image/*">
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+      <button id="modalRegister" class="btn ghost">Register</button>
+      <button id="modalLogin" class="btn">Login</button>
+    </div>
+    <div style="margin-top: 16px; padding: 12px; background: #f0f7ff; border-radius: 8px;">
+      <p style="margin: 0; font-size: 14px;"><strong>Demo Accounts:</strong></p>
+      <p style="margin: 4px 0; font-size: 12px;">Admin: admin@portal.com / admin123</p>
+      <p style="margin: 4px 0; font-size: 12px;">Student: student@portal.com / student123</p>
+    </div>
+  </div>
+</div>
+
+<!-- Create Club Modal -->
+<div id="createClubModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.45);align-items:center;justify-content:center;z-index:1000;">
+  <div style="background:var(--surface);padding:22px;border-radius:12px;max-width:520px;width:100%;box-shadow:var(--shadow);">
+    <h3>Create New Club</h3>
+    <input id="clubName" placeholder="Club Name" style="width:100%;padding:8px;margin:4px 0">
+    <input id="clubAbbreviation" placeholder="Club Abbreviation" style="width:100%;padding:8px;margin:4px 0">
+    <input id="clubLeader1" placeholder="Primary Leader Name" style="width:100%;padding:8px;margin:4px 0">
+    <input id="clubLeader2" placeholder="Secondary Leader Name (Optional)" style="width:100%;padding:8px;margin:4px 0">
+    <textarea id="clubDescription" placeholder="Club Description" style="width:100%;padding:8px;margin:4px 0; min-height:100px"></textarea>
+    <input type="file" id="clubLogo" class="file-input" accept="image/*">
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+      <button id="cancelClubBtn" class="btn ghost">Cancel</button>
+      <button id="saveClubBtn" class="btn">Create Club</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Project Modal -->
+<div id="createProjectModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.45);align-items:center;justify-content:center;z-index:1000;">
+  <div style="background:var(--surface);padding:22px;border-radius:12px;max-width:520px;width:100%;box-shadow:var(--shadow);">
+    <h3>Create New Project</h3>
+    <input id="projectTitle" placeholder="Project Title" style="width:100%;padding:8px;margin:4px 0">
+    <textarea id="projectDescription" placeholder="Project Description" style="width:100%;padding:8px;margin:4px 0; min-height:100px"></textarea>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+      <button id="cancelProjectBtn" class="btn ghost">Cancel</button>
+      <button id="saveProjectBtn" class="btn">Create Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast" class="toast"></div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+<script>
+// --- Firebase config ---
+const firebaseConfig = {
+  apiKey: "AIzaSyD6ha3-iiXidoa0KnB9PuA0fnlqDUkcV2g",
+  authDomain: "bniyekhlef-high-school.firebaseapp.com",
+  projectId: "bniyekhlef-high-school",
+  storageBucket: "bniyekhlef-high-school.firebasestorage.app",
+  messagingSenderId: "807833913334",
+  appId: "1:807833913334:web:a5eb4e2b96c0c32f2169d7",
+  measurementId: "G-QCWNGXXRPP"
+};
+
+// --- Initialize Firebase ---
+firebase.initializeApp(firebaseConfig);
+const analytics = firebase.analytics();
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+// --- UI Functions ---
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = `toast ${type}`;
+  toast.classList.add('show');
+  
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
+}
+
+function setLoading(button, isLoading) {
+  if (isLoading) {
+    button.disabled = true;
+    button.innerHTML = '<span class="loading"></span>';
+  } else {
+    button.disabled = false;
+    button.innerHTML = button.getAttribute('data-original-text');
+  }
+}
+
+// --- Sidebar navigation ---
+const navItems = document.querySelectorAll(".nav-item");
+navItems.forEach(item => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll("section").forEach(sec => sec.style.display = "none");
+    const tab = item.dataset.tab;
+    document.getElementById(tab).style.display = "block";
+    navItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+  });
+});
+
+// --- Modal toggle ---
+const authModal = document.getElementById("authModal");
+const openLoginBtn = document.getElementById("openLogin");
+openLoginBtn.addEventListener("click", () => authModal.style.display = "flex");
+authModal.addEventListener("click", e => { 
+  if(e.target === authModal) authModal.style.display = "none"; 
+});
+
+// --- Club Creation Modal ---
+const createClubModal = document.getElementById("createClubModal");
+const createClubBtn = document.getElementById("createClubBtn");
+const cancelClubBtn = document.getElementById("cancelClubBtn");
+const saveClubBtn = document.getElementById("saveClubBtn");
+
+createClubBtn.addEventListener("click", () => {
+  createClubModal.style.display = "flex";
+});
+
+cancelClubBtn.addEventListener("click", () => {
+  createClubModal.style.display = "none";
+});
+
+saveClubBtn.addEventListener("click", () => {
+  const name = document.getElementById("clubName").value;
+  const abbreviation = document.getElementById("clubAbbreviation").value;
+  const leader1 = document.getElementById("clubLeader1").value;
+  const leader2 = document.getElementById("clubLeader2").value;
+  const description = document.getElementById("clubDescription").value;
+  const logoFile = document.getElementById("clubLogo").files[0];
+  
+  if (!name || !abbreviation || !leader1 || !description) {
+    showToast('Please fill in all required fields', 'error');
+    return;
+  }
+  
+  const user = auth.currentUser;
+  if (!user) {
+    showToast('Please log in to create clubs', 'error');
+    return;
+  }
+  
+  saveClubBtn.setAttribute('data-original-text', saveClubBtn.textContent);
+  setLoading(saveClubBtn, true);
+  
+  let uploadPromise = Promise.resolve(null);
+  
+  // Upload logo if selected
+  if (logoFile) {
+    const storageRef = storage.ref();
+    const clubLogoRef = storageRef.child(`clubLogos/${user.uid}_${Date.now()}`);
+    uploadPromise = clubLogoRef.put(logoFile).then(snapshot => snapshot.ref.getDownloadURL());
+  }
+  
+  uploadPromise
+    .then(logoURL => {
+      const clubData = {
+        name: name,
+        abbreviation: abbreviation,
+        leader1: leader1,
+        leader2: leader2 || '',
+        description: description,
+        createdBy: user.uid,
+        creatorEmail: user.email,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        members: [user.uid],
+        memberCount: 1,
+        funds: 0,
+        projects: []
+      };
+      
+      if (logoURL) {
+        clubData.logoURL = logoURL;
+      }
+      
+      return db.collection("clubs").add(clubData);
+    })
+    .then(() => {
+      showToast("Club created successfully!");
+      createClubModal.style.display = "none";
+      document.getElementById("clubName").value = "";
+      document.getElementById("clubAbbreviation").value = "";
+      document.getElementById("clubLeader1").value = "";
+      document.getElementById("clubLeader2").value = "";
+      document.getElementById("clubDescription").value = "";
+      document.getElementById("clubLogo").value = "";
+    })
+    .catch(err => {
+      showToast(err.message, 'error');
+    })
+    .finally(() => {
+      setLoading(saveClubBtn, false);
+    });
+});
+
+// --- Project Creation Modal ---
+const createProjectModal = document.getElementById("createProjectModal");
+const createProjectBtn = document.getElementById("createProjectBtn");
+const cancelProjectBtn = document.getElementById("cancelProjectBtn");
+const saveProjectBtn = document.getElementById("saveProjectBtn");
+
+createProjectBtn.addEventListener("click", () => {
+  createProjectModal.style.display = "flex";
+});
+
+cancelProjectBtn.addEventListener("click", () => {
+  createProjectModal.style.display = "none";
+});
+
+saveProjectBtn.addEventListener("click", () => {
+  const title = document.getElementById("projectTitle").value;
+  const description = document.getElementById("projectDescription").value;
+  
+  if (!title || !description) {
+    showToast('Please fill in all fields', 'error');
+    return;
+  }
+  
+  const user = auth.currentUser;
+  if (!user) {
+    showToast('Please log in to create projects', 'error');
+    return;
+  }
+  
+  saveProjectBtn.setAttribute('data-original-text', saveProjectBtn.textContent);
+  setLoading(saveProjectBtn, true);
+  
+  db.collection("projects").add({
+    title: title,
+    description: description,
+    createdBy: user.uid,
+    creatorEmail: user.email,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    status: "active"
+  })
+  .then(() => {
+    showToast("Project created successfully!");
+    createProjectModal.style.display = "none";
+    document.getElementById("projectTitle").value = "";
+    document.getElementById("projectDescription").value = "";
+  })
+  .catch(err => {
+    showToast(err.message, 'error');
+  })
+  .finally(() => {
+    setLoading(saveProjectBtn, false);
+  });
+});
+
+// --- Chat System ---
+const sendBtn = document.getElementById("sendBtn");
+const chatInput = document.getElementById("chatInput");
+const chatWindow = document.getElementById("chatWindow");
+
+sendBtn.addEventListener("click", sendMessage);
+chatInput.addEventListener("keypress", (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+
+function sendMessage() {
+  const message = chatInput.value.trim();
+  if (!message) return;
+  
+  const user = auth.currentUser;
+  if (!user) {
+    showToast('Please log in to send messages', 'error');
+    return;
+  }
+  
+  // Only admins can send messages
+  if (user.email !== "admin@portal.com") {
+    showToast('Only administrators can send messages', 'error');
+    return;
+  }
+  
+  db.collection("messages").add({
+    text: message,
+    sender: user.uid,
+    senderEmail: user.email,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(() => {
+    chatInput.value = "";
+  })
+  .catch(err => {
+    showToast(err.message, 'error');
+  });
+}
+
+// Load messages in real-time
+db.collection("messages")
+  .orderBy("timestamp", "asc")
+  .onSnapshot(snapshot => {
+    chatWindow.innerHTML = "";
+    
+    snapshot.forEach(doc => {
+      const message = doc.data();
+      const messageDiv = document.createElement("div");
+      messageDiv.className = "message";
+      
+      const metaDiv = document.createElement("div");
+      metaDiv.className = "meta";
+      metaDiv.textContent = `${message.senderEmail} - ${message.timestamp ? new Date(message.timestamp.toDate()).toLocaleString() : 'Just now'}`;
+      
+      const textDiv = document.createElement("div");
+      textDiv.textContent = message.text;
+      
+      messageDiv.appendChild(metaDiv);
+      messageDiv.appendChild(textDiv);
+      chatWindow.appendChild(messageDiv);
+    });
+    
+    // Scroll to bottom
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  });
+
+// --- Profile System ---
+const saveProfileBtn = document.getElementById("saveProfileBtn");
+const profilePicInput = document.getElementById("profilePicInput");
+const profilePic = document.getElementById("profilePic");
+const profileName = document.getElementById("profileName");
+const profileGrade = document.getElementById("profileGrade");
+const profileBio = document.getElementById("profileBio");
+
+saveProfileBtn.addEventListener("click", saveProfile);
+profilePicInput.addEventListener("change", handleProfilePicUpload);
+
+function handleProfilePicUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const user = auth.currentUser;
+  if (!user) {
+    showToast('Please log in to update profile', 'error');
+    return;
+  }
+  
+  // Show preview
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    profilePic.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveProfile() {
+  const user = auth.currentUser;
+  if (!user) {
+    showToast('Please log in to save profile', 'error');
+    return;
+  }
+  
+  const name = profileName.value;
+  const grade = profileGrade.value;
+  const bio = profileBio.value;
+  const file = profilePicInput.files[0];
+  
+  saveProfileBtn.setAttribute('data-original-text', saveProfileBtn.textContent);
+  setLoading(saveProfileBtn, true);
+  
+  let uploadPromise = Promise.resolve(null);
+  
+  // Upload image if selected
+  if (file) {
+    const storageRef = storage.ref();
+    const profilePicRef = storageRef.child(`profilePics/${user.uid}`);
+    uploadPromise = profilePicRef.put(file).then(snapshot => snapshot.ref.getDownloadURL());
+  }
+  
+  uploadPromise
+    .then(photoURL => {
+      const profileData = {
+        name: name,
+        grade: grade,
+        bio: bio,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      
+      if (photoURL) {
+        profileData.photoURL = photoURL;
+      }
+      
+      return db.collection("profiles").doc(user.uid).set(profileData, { merge: true });
+    })
+    .then(() => {
+      showToast("Profile saved successfully!");
+      loadProfile();
+    })
+    .catch(err => {
+      showToast(err.message, 'error');
+    })
+    .finally(() => {
+      setLoading(saveProfileBtn, false);
+    });
+}
+
+function loadProfile() {
+  const user = auth.currentUser;
+  if (!user) return;
+  
+  db.collection("profiles").doc(user.uid).get()
+    .then(doc => {
+      if (doc.exists) {
+        const data = doc.data();
+        profileName.value = data.name || "";
+        profileGrade.value = data.grade || "";
+        profileBio.value = data.bio || "";
+        if (data.photoURL) {
+          profilePic.src = data.photoURL;
+        }
+      }
+    })
+    .catch(err => {
+      console.error("Error loading profile:", err);
+    });
+}
+
+// --- Auth buttons ---
+document.getElementById("modalRegister").addEventListener("click", () => {
+  const firstName = document.getElementById("modalFirstName").value;
+  const lastName = document.getElementById("modalLastName").value;
+  const email = document.getElementById("modalEmail").value;
+  const pass = document.getElementById("modalPass").value;
+  const grade = document.getElementById("modalGrade").value;
+  const profilePicFile = document.getElementById("modalProfilePic").files[0];
+  
+  if (!firstName || !lastName || !email || !pass || !grade) {
+    showToast('Please fill in all fields', 'error');
+    return;
+  }
+  
+  const button = document.getElementById("modalRegister");
+  button.setAttribute('data-original-text', button.textContent);
+  setLoading(button, true);
+  
+  auth.createUserWithEmailAndPassword(email, pass)
+    .then(u => {
+      // Store user profile
+      const profileData = {
+        firstName: firstName,
+        lastName: lastName,
+        name: `${firstName} ${lastName}`,
+        email: email,
+        grade: grade,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      
+      let uploadPromise = Promise.resolve(null);
+      
+      // Upload profile picture if selected
+      if (profilePicFile) {
+        const storageRef = storage.ref();
+        const profilePicRef = storageRef.child(`profilePics/${u.user.uid}`);
+        uploadPromise = profilePicRef.put(profilePicFile).then(snapshot => snapshot.ref.getDownloadURL());
+      }
+      
+      return uploadPromise.then(photoURL => {
+        if (photoURL) {
+          profileData.photoURL = photoURL;
+        }
+        return db.collection("profiles").doc(u.user.uid).set(profileData);
+      });
+    })
+    .then(() => {
+      showToast("Registered successfully!");
+      authModal.style.display="none";
+      // Clear form
+      document.getElementById("modalFirstName").value = "";
+      document.getElementById("modalLastName").value = "";
+      document.getElementById("modalEmail").value = "";
+      document.getElementById("modalPass").value = "";
+      document.getElementById("modalGrade").value = "";
+      document.getElementById("modalProfilePic").value = "";
+    })
+    .catch(err => {
+      showToast(err.message, 'error');
+    })
+    .finally(() => {
+      setLoading(button, false);
+    });
+});
+
+document.getElementById("modalLogin").addEventListener("click", () => {
+  const email = document.getElementById("modalEmail").value;
+  const pass = document.getElementById("modalPass").value;
+  const button = document.getElementById("modalLogin");
+  
+  if (!email || !pass) {
+    showToast('Please enter both email and password', 'error');
+    return;
+  }
+  
+  button.setAttribute('data-original-text', button.textContent);
+  setLoading(button, true);
+  
+  auth.signInWithEmailAndPassword(email, pass)
+    .then(u => { 
+      showToast("Logged in successfully!");
+      authModal.style.display="none"; 
+    })
+    .catch(err => {
+      showToast(err.message, 'error');
+    })
+    .finally(() => {
+      setLoading(button, false);
+    });
+});
+
+document.getElementById("sidebarLogout").addEventListener("click", () => {
+  auth.signOut().then(() => showToast("Logged out successfully!"));
+});
+
+// --- Auth state listener ---
+auth.onAuthStateChanged(user => {
+  const sideName = document.getElementById("sideName");
+  const sideRole = document.getElementById("sideRole");
+  const welcomeText = document.getElementById("welcomeText");
+  const welcomeSub = document.getElementById("welcomeSub");
+  const loginBtn = document.getElementById("openLogin");
+  const logoutBtn = document.getElementById("sidebarLogout");
+  const adminNav = document.getElementById("adminNav");
+  const createClubBtn = document.getElementById("createClubBtn");
+
+  if(user){
+    // Check if user is admin
+    const isAdmin = user.email === "admin@portal.com";
+    
+    // Load user profile to get name
+    db.collection("profiles").doc(user.uid).get()
+      .then(doc => {
+        if (doc.exists) {
+          const data = doc.data();
+          sideName.textContent = data.name || user.email;
+          welcomeText.textContent = `Welcome, ${data.name || user.email}`;
+        } else {
+          sideName.textContent = user.email;
+          welcomeText.textContent = `Welcome, ${user.email}`;
+        }
+      })
+      .catch(() => {
+        sideName.textContent = user.email;
+        welcomeText.textContent = `Welcome, ${user.email}`;
+      });
+    
+    sideRole.textContent = isAdmin ? "Administrator" : "Student";
+    welcomeSub.textContent = isAdmin ? "Administrator Dashboard" : "Ready to learn!";
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "block";
+    
+    // Show/hide admin panel and club creation based on role
+    if (isAdmin) {
+      adminNav.style.display = "flex";
+      createClubBtn.style.display = "block";
+    } else {
+      adminNav.style.display = "none";
+      createClubBtn.style.display = "none";
+    }
+    
+    // Load user profile
+    loadProfile();
+    
+    // Load user's clubs
+    loadUserClubs();
+  } else {
+    sideName.textContent = "Guest";
+    sideRole.textContent = "Not signed in";
+    welcomeText.textContent = "Welcome";
+    welcomeSub.textContent = "Please sign in";
+    loginBtn.style.display = "block";
+    logoutBtn.style.display = "none";
+    adminNav.style.display = "none";
+    createClubBtn.style.display = "none";
+    
+    // Remove club tabs
+    document.querySelectorAll('.club-tab').forEach(tab => tab.remove());
+    document.querySelectorAll('.club-section').forEach(section => section.remove());
+  }
+});
+
+// --- Clubs System ---
+function loadUserClubs() {
+  const user = auth.currentUser;
+  if (!user) return;
+  
+  // Load all clubs
+  db.collection("clubs").onSnapshot(snapshot => {
+    const clubsList = document.getElementById("clubsList");
+    clubsList.innerHTML = "";
+    
+    if (snapshot.empty) {
+      clubsList.innerHTML = "<div class='list-item'>No clubs yet. Admins can create clubs.</div>";
+      return;
+    }
+    
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const div = document.createElement("div");
+      div.className = "club-card";
+      
+      const isMember = data.members && data.members.includes(user.uid);
+      
+      div.innerHTML = `
+        <div class="club-header">
+          ${data.logoURL ? `<img src="${data.logoURL}" class="club-logo" alt="${data.name} Logo">` : '<div class="club-logo" style="background:#e2e8f0;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined">groups</span></div>'}
+          <div class="club-info">
+            <h3 class="club-name">${data.name}</h3>
+            <p class="club-abbr">${data.abbreviation}</p>
+            <p class="club-leaders">Leaders: ${data.leader1}${data.leader2 ? `, ${data.leader2}` : ''}</p>
+            <p>${data.description}</p>
+          </div>
+        </div>
+        <div class="club-stats">
+          <div class="club-stat">
+            <div class="club-stat-value">${data.memberCount || 1}</div>
+            <div class="club-stat-label">Members</div>
+          </div>
+          <div class="club-stat">
+            <div class="club-stat-value">${data.funds || 0} DH</div>
+            <div class="club-stat-label">Funds</div>
+          </div>
+          <div class="club-stat">
+            <div class="club-stat-value">${data.projects ? data.projects.length : 0}</div>
+            <div class="club-stat-label">Projects</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          ${isMember ? 
+            '<button class="btn success" style="font-size: 12px; padding: 6px 12px;">Already Joined</button>' : 
+            `<button class="btn" style="font-size: 12px; padding: 6px 12px;" onclick="joinClub('${doc.id}')">Join Club</button>`
+          }
+        </div>
+      `;
+      clubsList.appendChild(div);
+      
+      // If user is a member, create a tab for this club
+      if (isMember) {
+        createClubTab(doc.id, data);
+      }
+    });
+  });
+}
+
+function createClubTab(clubId, clubData) {
+  // Check if tab already exists
+  if (document.querySelector(`[data-tab="club-${clubId}"]`)) return;
+  
+  // Create tab in sidebar
+  const sidebarNav = document.querySelector('.sidebar-nav');
+  const clubTab = document.createElement('div');
+  clubTab.className = 'nav-item club-tab';
+  clubTab.dataset.tab = `club-${clubId}`;
+  clubTab.innerHTML = `
+    <span class="material-symbols-outlined icon">groups</span>${clubData.abbreviation}
+  `;
+  
+  // Add click event
+  clubTab.addEventListener('click', () => {
+    document.querySelectorAll("section").forEach(sec => sec.style.display = "none");
+    document.getElementById(`club-${clubId}`).style.display = "block";
+    navItems.forEach(i => i.classList.remove("active"));
+    clubTab.classList.add("active");
+  });
+  
+  sidebarNav.appendChild(clubTab);
+  
+  // Create club section
+  const main = document.querySelector('.main');
+  const clubSection = document.createElement('section');
+  clubSection.id = `club-${clubId}`;
+  clubSection.className = 'card';
+  clubSection.style.display = 'none';
+  
+  clubSection.innerHTML = `
+    <div class="club-tab-content">
+      <div class="club-header">
+        ${clubData.logoURL ? `<img src="${clubData.logoURL}" class="club-logo" alt="${clubData.name} Logo">` : '<div class="club-logo" style="background:#e2e8f0;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined">groups</span></div>'}
+        <div class="club-info">
+          <h3>${clubData.name} (${clubData.abbreviation})</h3>
+          <p class="club-leaders">Leaders: ${clubData.leader1}${clubData.leader2 ? `, ${clubData.leader2}` : ''}</p>
+          <p>${clubData.description}</p>
+        </div>
+      </div>
+      
+      <div class="club-section">
+        <h4><span class="material-symbols-outlined">account_balance</span>Club Funds</h4>
+        <div class="funds-display">${clubData.funds || 0} DH</div>
+        <p>Current available funds for club activities and projects.</p>
+      </div>
+      
+      <div class="club-section">
+        <h4><span class="material-symbols-outlined">work</span>W.I.P Projects</h4>
+        <div id="club-projects-${clubId}">
+          ${clubData.projects && clubData.projects.length > 0 ? 
+            clubData.projects.map(project => `
+              <div class="project-item">
+                <h5 class="project-title">${project.title}</h5>
+                <p class="project-desc">${project.description}</p>
+                <small>Status: ${project.status || 'In Progress'}</small>
+              </div>
+            `).join('') : 
+            '<p>No projects currently in progress.</p>'
+          }
+        </div>
+      </div>
+      
+      <div class="club-section">
+        <h4><span class="material-symbols-outlined">groups</span>Members</h4>
+        <p>Total Members: ${clubData.memberCount || 1}</p>
+        <!-- Member list would go here -->
+      </div>
+    </div>
+  `;
+  
+  main.appendChild(clubSection);
+}
+
+function joinClub(clubId) {
+  const user = auth.currentUser;
+  if (!user) {
+    showToast('Please log in to join clubs', 'error');
+    return;
+  }
+  
+  const clubRef = db.collection("clubs").doc(clubId);
+  
+  clubRef.get().then(doc => {
+    if (doc.exists) {
+      const data = doc.data();
+      const members = data.members || [];
+      
+      if (members.includes(user.uid)) {
+        showToast('You are already a member of this club', 'error');
+        return;
+      }
+      
+      members.push(user.uid);
+      
+      clubRef.update({
+        members: members,
+        memberCount: members.length
+      })
+      .then(() => {
+        showToast('Successfully joined the club!');
+      })
+      .catch(err => {
+        showToast(err.message, 'error');
+      });
+    }
+  });
+}
+
+// --- Firestore real-time updates ---
+const projectsList = document.getElementById("projectsList");
+db.collection("projects").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+  projectsList.innerHTML = "";
+  
+  if (snapshot.empty) {
+    projectsList.innerHTML = "<div class='list-item'>No projects yet. Create one to get started!</div>";
+    return;
+  }
+  
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.innerHTML = `
+      <div>
+        <strong>${data.title}</strong>
+        <div style="font-size: 14px; color: var(--muted);">${data.description}</div>
+        <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">Created by: ${data.creatorEmail}</div>
+      </div>
+      <div style="font-size: 12px; color: var(--muted);">${data.createdAt ? new Date(data.createdAt.toDate()).toLocaleDateString() : 'Recently'}</div>
+    `;
+    projectsList.appendChild(div);
+  });
+});
+
+// --- Placeholder for other sections (assignments, events, etc.) ---
+const placeholders = ["assignmentsList","eventsList","reportsList"];
+placeholders.forEach(id => {
+  const container = document.getElementById(id);
+  if(container) container.innerHTML = "<div class='list-item'>No data yet</div>";
+});
+
+// --- Admin Panel Functions ---
+document.getElementById("manageUsersBtn").addEventListener("click", () => {
+  const adminContent = document.getElementById("adminContent");
+  adminContent.innerHTML = `
+    <h4>User Management</h4>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Grade</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Admin User</td>
+          <td>admin@portal.com</td>
+          <td>-</td>
+          <td>Administrator</td>
+          <td><button class="btn danger" style="padding: 4px 8px; font-size: 12px;">Delete</button></td>
+        </tr>
+        <tr>
+          <td>Student User</td>
+          <td>student@portal.com</td>
+          <td>2BAC</td>
+          <td>Student</td>
+          <td><button class="btn danger" style="padding: 4px 8px; font-size: 12px;">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+});
+
+document.getElementById("systemStatsBtn").addEventListener("click", () => {
+  const adminContent = document.getElementById("adminContent");
+  adminContent.innerHTML = `
+    <h4>System Statistics</h4>
+    <div class="grid">
+      <div class="card">
+        <h4>Total Users</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 0;">2</p>
+      </div>
+      <div class="card">
+        <h4>Active Projects</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 0;">3</p>
+      </div>
+      <div class="card">
+        <h4>Clubs</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 0;">2</p>
+      </div>
+      <div class="card">
+        <h4>Messages Today</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 0;">5</p>
+      </div>
+    </div>
+  `;
+});
+
+// Create demo accounts on page load
+window.addEventListener('load', () => {
+  // Pre-fill demo accounts for easier testing
+  document.getElementById('modalEmail').value = 'student@portal.com';
+  document.getElementById('modalPass').value = 'student123';
+});
+</script>
+</body>
+</html>
